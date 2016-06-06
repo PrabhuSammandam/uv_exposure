@@ -32,7 +32,7 @@ class SevenSegmentDisplay
 
           void SwitchOffDisplay();
 
-          void SetStandBy(uint8_t is_standby);
+          void SetStandBy(bool is_standby);
 		  
 	 private:
 		  void InitDisplayTimer();

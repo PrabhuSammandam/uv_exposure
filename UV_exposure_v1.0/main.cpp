@@ -75,7 +75,7 @@ void StopCountDownTimer()
     timeValue.Reset();
 
     sevenSegmentDisplay.SetTime(timeValue);
-    sevenSegmentDisplay.SetStandBy(1);
+    sevenSegmentDisplay.SetStandBy(true);
 
     beepBuzz = true;
 }
@@ -98,7 +98,7 @@ void StartCountDownTimer()
 
     if (timeValue.IsValid())
     {
-        sevenSegmentDisplay.SetStandBy(0);
+        sevenSegmentDisplay.SetStandBy(false);
 
         countDownTimerState = COUNT_DOWN_TIMER_STATE_STARTED;
 
@@ -122,7 +122,7 @@ void ProcessKey()
             {
                 if(countDownTimerState == COUNT_DOWN_TIMER_STATE_STOPPED)
                 {
-                    sevenSegmentDisplay.SetStandBy(0);
+                    sevenSegmentDisplay.SetStandBy(false);
                     timeValue.Reset();
 
                     if (preset_idx == sizeof(preset_time)/sizeof(uint8_t))
@@ -164,7 +164,7 @@ void ProcessKey()
             {
                 if(countDownTimerState == COUNT_DOWN_TIMER_STATE_STOPPED)
                 {
-                    sevenSegmentDisplay.SetStandBy(0);
+                    sevenSegmentDisplay.SetStandBy(false);
 
                     if (minuteSelect == true)
                     {
@@ -186,7 +186,7 @@ void ProcessKey()
             {
                 if(countDownTimerState == COUNT_DOWN_TIMER_STATE_STOPPED)
                 {
-                    sevenSegmentDisplay.SetStandBy(0);
+                    sevenSegmentDisplay.SetStandBy(false);
 
                     if (minuteSelect == true)
                     {
@@ -242,26 +242,13 @@ void BeepBuzzer()
 {
     for(char i = 0; i < 5; i++)
     {
-        io_port_set_pin_high(BUZZER);
-        delay_ms(BEEP_SOUND_LENGTH);
-        io_port_set_pin_low(BUZZER);
-        delay_ms(BEEP_SOUND_LENGTH);
-        io_port_set_pin_high(BUZZER);
-        delay_ms(BEEP_SOUND_LENGTH);
-        io_port_set_pin_low(BUZZER);
-        delay_ms(BEEP_SOUND_LENGTH);
-        io_port_set_pin_high(BUZZER);
-        delay_ms(BEEP_SOUND_LENGTH);
-        io_port_set_pin_low(BUZZER);
-        delay_ms(BEEP_SOUND_LENGTH);
-        io_port_set_pin_high(BUZZER);
-        delay_ms(BEEP_SOUND_LENGTH);
-        io_port_set_pin_low(BUZZER);
-        delay_ms(BEEP_SOUND_LENGTH);
-        io_port_set_pin_high(BUZZER);
-        delay_ms(BEEP_SOUND_LENGTH);
-        io_port_set_pin_low(BUZZER);
-        delay_ms(600);
+        for (char j = 0; j < 5; j++)
+        {
+            io_port_set_pin_high(BUZZER);
+            delay_ms(BEEP_SOUND_LENGTH);
+            io_port_set_pin_low(BUZZER);
+            delay_ms(BEEP_SOUND_LENGTH);
+        }
     }
 }
 
@@ -287,7 +274,7 @@ int main(void)
     sei();
 
     inform_startup();
-    sevenSegmentDisplay.SetStandBy(1);
+    sevenSegmentDisplay.SetStandBy(true);
 
     while (1)
     {

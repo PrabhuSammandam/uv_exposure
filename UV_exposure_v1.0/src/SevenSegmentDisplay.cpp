@@ -109,7 +109,7 @@ void SevenSegmentDisplay::InitDisplayTimer()
     TCCR0 |= (1 << CS01) | (1 << CS00); // pre-scale by 64
 }
 
-void SevenSegmentDisplay::SetStandBy(uint8_t is_standby)
+void SevenSegmentDisplay::SetStandBy(bool is_standby)
 {
     gs_enable_stand_by = is_standby;
     gs_display_off = 0;
